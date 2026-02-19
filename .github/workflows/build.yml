@@ -13,7 +13,7 @@ jobs:
     
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Set up Android NDK
       uses: nttld/setup-ndk@v1
@@ -35,7 +35,7 @@ jobs:
           -DANDROID_PLATFORM=android-21 \
           -DCMAKE_BUILD_TYPE=Release
         make
-        mv libaupd.so libaupd-v8a.so
+        cp libaupd.so ../libaupd-v8a.so
         cd ..
 
     - name: Build armeabi-v7a
@@ -48,13 +48,13 @@ jobs:
           -DANDROID_PLATFORM=android-21 \
           -DCMAKE_BUILD_TYPE=Release
         make
-        mv libaupd.so libaupd-v7a.so
+        cp libaupd.so ../libaupd-v7a.so
         cd ..
 
     - name: Upload Artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: native-libraries
         path: |
-          build_v8a/libaupd-v8a.so
-          build_v7a/libaupd-v7a.so
+          libaupd-v8a.so
+          libaupd-v7a.so
